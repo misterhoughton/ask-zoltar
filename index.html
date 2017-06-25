@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Ask Zoltar!</title>
+	<link href="https://fonts.googleapis.com/css?family=Lato:300|Modak" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Chela+One" rel="stylesheet">
+	<style>
+		body {
+			padding: 2em 10%;
+			text-align: center;
+			font-family: 'Lato', sans-serif;
+			font-size: 1.75em;
+		}
+		h1 {
+			margin: .15em;
+			font-family: 'Modak', cursive;
+			font-family: 'Chela One';
+			font-size: 5em;
+			font-weight: normal;
+			color: #F44336;
+		}
+		p {
+			min-height: 1.25em;
+		}
+		input,button {
+			font-size: 1em;
+			border: 1px solid;
+			font-family: 'Lato', sans-serif;
+		}
+		input {
+			width: 70%;
+			padding: .25em .35em .35em;
+			text-align: center;
+			border-color: #ccc;
+		}
+		input:required:invalid {
+			border-color: #0087FF;
+			background-color: #EBF6FF;
+		}
+		button {
+			display: block;
+			margin: .75em auto;
+			padding: .5em;
+			cursor: pointer;
+			background-color: #0087FF;
+			color: #fff;
+		} 
+		button:hover {
+			background-color: #4CAF50;
+		}
+	</style>
+</head>
+<body>
+	<h1>Ask Zoltar!</h1>
+	<input id ="question" type="text" placeholder="Your question" >
+	<p id="answer"></p>
+	<button id="ask" type="button" onclick="printResponse()">Ask</button><br>
+
+	<script>
+
+	var validationResponses = ['Try asking a question','Great question', 'Cat got your tongue?', 'Come on. I\'m on the clock here', 'Quickly. Zoltar is a busy man'],
+		responses = ['Possibly', 'The answer is written in the stars', 'Don\'t count on it', 'Ask me later', 'Unlikely', 'You may rely on it', 'These questions bore Zoltar', 'Really? You get the chance to ask Zoltar any question and you ask that?'];
+
+	function getRandomItem(array) {
+        var rnd = Math.floor(Math.random() * array.length);
+        return array[rnd];
+    }
+
+    function askZoltar() {
+    	var question = document.getElementById('question'),
+    		response,
+    		isValid = validateInput(question);
+
+    	if (isValid) {
+    		response = getRandomItem(responses);
+    	} else {
+    		response = getRandomItem(validationResponses);
+    	}
+    	return response;
+    }
+
+    function validateInput(input) {
+    	if (input.value !== '') {
+    		input.required = false;
+    		return true;
+    	}
+    	input.required = true;
+    	return false;
+    }
+
+    function printResponse() {
+		var answerText = document.getElementById('answer'),
+			answer = askZoltar();
+    	answerText.innerHTML = answer;
+	}
+
+	</script>
+</body>
+</html>
